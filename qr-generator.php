@@ -495,6 +495,17 @@ class QR_Generator {
 					<!-- Right Sidebar: Preview -->
 					<div class="qr-preview-area">
 						<div id="qr-canvas"></div>
+						
+						<!-- Quality Control -->
+						<div class="qr-quality-control">
+							<div class="quality-labels">
+								<span>Low quality</span>
+								<span id="quality-value">1000 x 1000 px</span>
+								<span>High quality</span>
+							</div>
+							<input type="range" id="qr-quality" min="100" max="2000" step="100" value="1000">
+						</div>
+
 						<div class="qr-actions">
 							<button id="qr-download" class="btn-primary">Download PNG</button>
 							<button id="qr-download-svg" class="btn-secondary">Download SVG</button>

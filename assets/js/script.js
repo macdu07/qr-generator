@@ -176,12 +176,73 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Quality Slider
+    const qualitySlider = document.getElementById('qr-quality');
+    const qualityValue = document.getElementById('quality-value');
+    
+    if (qualitySlider && qualityValue) {
+        qualitySlider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            qualityValue.textContent = `${val} x ${val} px`;
+        });
+    }
+
     // Download Buttons
     document.getElementById('qr-download').addEventListener('click', () => {
+        const size = parseInt(document.getElementById('qr-quality').value) || 1000;
+        // Update options with new size before download
+        qrCode.update({
+            width: size,
+            height: size
+        });
         qrCode.download({ name: "qr-code", extension: "png" });
+        
+        // Reset size to responsive/preview size after download (optional, but good for preview)
+        // Actually, the resize handler might fight this. 
+        // Better approach: The library uses the current options for download.
+        // So we set it, download, and then maybe reset?
+        // Or just let the resize handler fix it on next resize?
+        // Let's trigger a resize event manually to reset the preview size
+        setTimeout(() => {
+             window.dispatchEvent(new Event('resize'));
+        }, 100);
     });
     
     document.getElementById('qr-download-svg').addEventListener('click', () => {
+        // SVG is vector, size doesn't matter as much for quality, but good to set it
+        const size = parseInt(document.getElementById('qr-quality').value) || 1000;
+        qrCode.update({
+            width: size,
+            height: size
+        });
         qrCode.download({ name: "qr-code", extension: "svg" });
+        setTimeout(() => {
+             window.dispatchEvent(new Event('resize'));
+        }, 100);
     });
+
+    // Resize Handler
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            // Optional: Adjust QR size based on container width if needed
+            // For now, just re-rendering might be enough if the container changes size
+            // But the library might need a specific width/height update if we want it to be dynamic
+            // Let's check the container width
+            const container = document.getElementById('qr-canvas');
+            if (container) {
+                const width = container.clientWidth - 40; // padding
+                // Limit max size for preview
+                const size = Math.min(300, width);
+                qrCode.update({
+                    width: size,
+                    height: size
+                });
+            }
+        }, 200);
+    });
+    
+    // Trigger initial resize to set correct size
+    window.dispatchEvent(new Event('resize'));
 });
