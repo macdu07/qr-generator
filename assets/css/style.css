@@ -48,7 +48,7 @@
 .qr-tab-btn.active {
     background: #313131; /* Modern Purple */
     color: #fff;
-    box-shadow: 0 2px 8px rgba(125, 76, 219, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .qr-tab-btn .icon {
@@ -303,7 +303,7 @@ input[type=range]:focus {
 }
 
 .btn-primary:hover {
-    background: #6c42bd;
+    background: #000000;
     transform: translateY(-1px);
 }
 
@@ -342,8 +342,6 @@ input[type=range]:focus {
         flex: auto;
         border-left: none;
         padding: 20px;
-        order: -1; /* Show preview on top on mobile? Or keep bottom? Let's keep bottom for now, but maybe make it sticky? */
-        /* Actually, standard is controls then preview. Let's keep it. */
     }
 
     .qr-tabs {
