@@ -2,7 +2,7 @@
 /**
  * Plugin Name: QR Generator by Naikka
  * Description: A modern QR Code generator with advanced customization options. Add this shortcode <code>[qr_generator]</code> to any page or post.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Naikka
  * Author URI: https://naikka.co
  * Text Domain: qr-generator
