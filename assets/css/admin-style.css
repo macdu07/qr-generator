@@ -1,0 +1,377 @@
+/* QR Generator Admin Dashboard Styles */
+
+.qr-generator-dashboard {
+    background: #fff;
+    padding: 20px;
+    margin: 20px 0 0 -20px;
+}
+
+.qr-generator-dashboard .wp-heading-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.qr-generator-dashboard .wp-heading-inline .dashicons {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+.qr-generator-dashboard .description {
+    margin-bottom: 10px;
+    color: #646970;
+}
+
+.wp-core-ui .button.qr-generator-btn {
+    color: #FFFFFF;
+    background-color: #313131;
+    border-color: #313131;
+    margin-top: 10px;
+}
+
+/* Empty State */
+.qr-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: #f9f9f9;
+    border: 1px dashed #c3c4c7;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.qr-empty-icon {
+    margin-bottom: 20px;
+}
+
+.qr-empty-icon .dashicons {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: #c3c4c7;
+}
+
+.qr-empty-state h2 {
+    margin: 0 0 10px 0;
+    color: #1d2327;
+}
+
+.qr-empty-state p {
+    color: #646970;
+    margin: 0;
+}
+
+/* Stats */
+.qr-stats {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.qr-stat-box {
+    background: linear-gradient(135deg, #313131 0%, #4c4d4e 100%);
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.qr-stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.qr-stat-label {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Table Styles */
+.qr-history-table {
+    margin-top: 20px;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+}
+
+.qr-history-table th {
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 10px;
+}
+
+.qr-history-table td {
+    padding: 12px 10px;
+    vertical-align: middle;
+}
+
+.column-date {
+    width: 150px;
+}
+
+.column-type {
+    width: 120px;
+}
+
+.column-format {
+    width: 100px;
+}
+
+.column-actions {
+    width: 320px;
+}
+
+/* Download Button Styles */
+.wp-core-ui .button.qr-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-right: 5px !important;
+    background: #313131;
+    border-color: #313131;
+}
+
+.qr-download-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.qr-download-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.wp-core-ui .button.qr-view-details {
+    color: #313131;
+    border-color: #313131;
+}
+
+.wp-core-ui .button.button-link-delete {
+    border-color: #d63638;
+}
+
+.qr-time {
+    color: #646970;
+    font-size: 12px;
+}
+
+/* Type Badges */
+.qr-type-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.qr-type-url {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.qr-type-text {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.qr-type-email {
+    background: #e8f5e9;
+    color: #388e3c;
+}
+
+.qr-type-whatsapp {
+    background: #e0f7fa;
+    color: #00796b;
+}
+
+/* Format Badge */
+.qr-format-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: #f0f0f1;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #50575e;
+}
+
+/* Content Preview */
+.qr-content-preview {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #1d2327;
+    word-break: break-word;
+}
+
+/* Pagination */
+.tablenav.bottom {
+    padding: 15px 0;
+}
+
+.tablenav-pages {
+    float: right;
+}
+
+.tablenav-pages .pagination-links {
+    display: flex;
+    gap: 5px;
+}
+
+.tablenav-pages a,
+.tablenav-pages span {
+    padding: 6px 12px;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 3px;
+    text-decoration: none;
+    color: #2271b1;
+}
+
+.tablenav-pages span.current {
+    background: #2271b1;
+    color: #fff;
+    border-color: #2271b1;
+}
+
+/* Modal */
+.qr-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
+}
+
+.qr-modal-content {
+    background: #fff;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-height: 80vh;
+    overflow: auto;
+}
+
+.qr-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #dcdcde;
+}
+
+.qr-modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.qr-modal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #646970;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.qr-modal-close:hover {
+    background: #f0f0f1;
+    color: #1d2327;
+}
+
+.qr-modal-body {
+    padding: 24px;
+}
+
+.qr-detail-row {
+    margin-bottom: 20px;
+}
+
+.qr-detail-row:last-child {
+    margin-bottom: 0;
+}
+
+.qr-detail-row strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #1d2327;
+}
+
+.qr-detail-row div,
+.qr-detail-row span {
+    color: #646970;
+}
+
+.qr-detail-row ul {
+    margin: 5px 0 0 20px;
+    list-style: disc;
+}
+
+.qr-detail-row li {
+    margin: 5px 0;
+    color: #646970;
+}
+
+/* Responsive */
+@media screen and (max-width: 782px) {
+    .qr-generator-dashboard {
+        margin-left: 0;
+    }
+
+    .qr-history-table,
+    .qr-history-table tbody,
+    .qr-history-table tr,
+    .qr-history-table td {
+        display: block;
+    }
+
+    .qr-history-table thead {
+        display: none;
+    }
+
+    .qr-history-table tr {
+        margin-bottom: 15px;
+        border: 1px solid #c3c4c7;
+        border-radius: 4px;
+        padding: 10px;
+    }
+
+    .qr-history-table td {
+        padding: 8px 0;
+        border: none;
+    }
+
+    .qr-history-table td:before {
+        content: attr(class);
+        font-weight: 600;
+        display: inline-block;
+        margin-right: 10px;
+        text-transform: capitalize;
+    }
+
+    .column-date,
+    .column-type,
+    .column-format,
+    .column-actions {
+        width: 100%;
+    }
+}

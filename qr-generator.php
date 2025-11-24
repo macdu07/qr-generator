@@ -2,7 +2,7 @@
 /**
  * Plugin Name: QR Generator by Naikka
  * Description: A modern QR Code generator with advanced customization options. Add this shortcode <code>[qr_generator]</code> to any page or post.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Naikka
  * Author URI: https://naikka.co
  * Text Domain: qr-generator
@@ -15,11 +15,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'QR_GENERATOR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QR_GENERATOR_URL', plugin_dir_url( __FILE__ ) );
 
+// Include database class
+require_once QR_GENERATOR_PATH . 'includes/class-qr-database.php';
+
+// Register activation hook
+register_activation_hook( __FILE__, 'qr_generator_activate' );
+
+function qr_generator_activate() {
+	$db = new QR_Generator_Database();
+	$db->create_table();
+}
+
 class QR_Generator {
 
 	public function __construct() {
 		add_shortcode( 'qr_generator', array( $this, 'render_shortcode' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+		
+		// Admin hooks
+		if ( is_admin() ) {
+			add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+		}
+		
+		// AJAX handlers
+		add_action( 'wp_ajax_qr_save_history', array( $this, 'ajax_save_history' ) );
+		add_action( 'wp_ajax_nopriv_qr_save_history', array( $this, 'ajax_save_history' ) );
 	}
 
 	public function enqueue_assets() {
@@ -33,6 +54,12 @@ class QR_Generator {
 		
 		// Enqueue our custom script
 		wp_enqueue_script( 'qr-generator-script', QR_GENERATOR_URL . 'assets/js/script.js', array( 'jquery', 'qr-code-styling' ), '1.0.0', true );
+		
+		// Localize script with AJAX URL
+		wp_localize_script( 'qr-generator-script', 'qrGeneratorAjax', array(
+			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			'nonce' => wp_create_nonce( 'qr_save_nonce' )
+		) );
 	}
 
 	public function render_shortcode() {
@@ -516,6 +543,85 @@ class QR_Generator {
 		</div>
 		<?php
 		return ob_get_clean();
+	}
+	
+	/**
+	 * Add admin menu
+	 */
+	public function add_admin_menu() {
+		add_menu_page(
+			'QR Generator',
+			'QR Generator',
+			'manage_options',
+			'qr-generator-dashboard',
+			array( $this, 'render_admin_page' ),
+			'dashicons-editor-code',
+			30
+		);
+	}
+	
+	/**
+	 * Render admin page
+	 */
+	public function render_admin_page() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		include_once QR_GENERATOR_PATH . 'includes/admin-dashboard.php';
+	}
+	
+	/**
+	 * Enqueue admin assets
+	 */
+	public function enqueue_admin_assets( $hook ) {
+		if ( $hook !== 'toplevel_page_qr-generator-dashboard' ) {
+			return;
+		}
+		
+		// Enqueue styles
+		wp_enqueue_style( 'qr-generator-admin-style', QR_GENERATOR_URL . 'assets/css/admin-style.css', array(), '1.0.0' );
+		
+		// Enqueue QR Code Styling library for regeneration
+		wp_enqueue_script( 'qr-code-styling', QR_GENERATOR_URL . 'assets/js/qr-code-styling.js', array(), '1.5.0', true );
+		
+		// Enqueue admin script
+		wp_enqueue_script( 'qr-generator-admin-script', QR_GENERATOR_URL . 'assets/js/admin-script.js', array( 'jquery', 'qr-code-styling' ), '1.0.0', true );
+	}
+	
+	/**
+	 * AJAX handler to save QR history
+	 */
+	public function ajax_save_history() {
+		// Verify nonce
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'qr_save_nonce' ) ) {
+			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
+			return;
+		}
+		
+		// Get data
+		$content_type = isset( $_POST['content_type'] ) ? sanitize_text_field( $_POST['content_type'] ) : '';
+		$qr_data = isset( $_POST['qr_data'] ) ? sanitize_textarea_field( $_POST['qr_data'] ) : '';
+		$customization = isset( $_POST['customization'] ) ? $_POST['customization'] : array();
+		$file_format = isset( $_POST['file_format'] ) ? sanitize_text_field( $_POST['file_format'] ) : 'png';
+		
+		// Validate
+		if ( empty( $content_type ) || empty( $qr_data ) ) {
+			wp_send_json_error( array( 'message' => 'Missing required data' ) );
+			return;
+		}
+		
+		// Get user ID (0 for non-logged users)
+		$user_id = get_current_user_id();
+		
+		// Save to database
+		$db = new QR_Generator_Database();
+		$result = $db->save_qr( $user_id, $content_type, $qr_data, $customization, $file_format );
+		
+		if ( $result ) {
+			wp_send_json_success( array( 'message' => 'QR code saved successfully', 'id' => $result ) );
+		} else {
+			wp_send_json_error( array( 'message' => 'Failed to save QR code' ) );
+		}
 	}
 }
 

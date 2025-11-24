@@ -46,7 +46,8 @@
 }
 
 .qr-tab-btn.active {
-    background: #313131; /* Modern Purple */
+    background: #313131;
+    /* Modern Purple */
     color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
@@ -215,7 +216,7 @@
     background: #fff;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     margin-bottom: 20px;
     display: flex;
     justify-content: center;
@@ -224,7 +225,8 @@
 #qr-canvas svg {
     width: 100% !important;
     height: auto !important;
-    max-width: 300px; /* Prevent it from getting too huge on large screens if desired, or remove for full fluid */
+    max-width: 300px;
+    /* Prevent it from getting too huge on large screens if desired, or remove for full fluid */
 }
 
 /* Quality Control */
@@ -249,10 +251,10 @@
 }
 
 input[type=range] {
-    -webkit-appearance: none; 
+    -webkit-appearance: none;
     appearance: none;
-    width: 100%; 
-    background: transparent; 
+    width: 100%;
+    background: transparent;
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -260,11 +262,12 @@ input[type=range]::-webkit-slider-thumb {
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background: #313131; /* Dark thumb */
+    background: #313131;
+    /* Dark thumb */
     border: 3px solid #fff;
     box-shadow: 0 0 0 1px #313131;
     cursor: pointer;
-    margin-top: -8px; 
+    margin-top: -8px;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
@@ -286,7 +289,8 @@ input[type=range]:focus {
     justify-content: center;
 }
 
-.btn-primary, .btn-secondary {
+.btn-primary,
+.btn-secondary {
     flex: 1;
     padding: 12px 20px;
     font-size: 16px;
@@ -317,7 +321,8 @@ input[type=range]:focus {
     transform: translateY(-1px);
 }
 
-.btn-primary:active, .btn-secondary:active {
+.btn-primary:active,
+.btn-secondary:active {
     transform: translateY(0);
 }
 
@@ -331,13 +336,13 @@ input[type=range]:focus {
     .qr-main-area {
         flex-direction: column;
     }
-    
+
     .qr-controls {
         border-right: none;
         border-bottom: 1px solid #eee;
         padding: 20px;
     }
-    
+
     .qr-preview-area {
         flex: auto;
         border-left: none;
@@ -372,6 +377,13 @@ input[type=range]:focus {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
